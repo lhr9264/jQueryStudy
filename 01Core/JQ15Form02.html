@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+    $(function(){
+        /*
+        태그셀렉터 input과 :input의 차이점
+            콜론이 없다면 순수한 <input>만 선택한다.
+            콜론이 있으면 <input>을 포함해서 <select>, <textarea>까지 선택한다.
+        */
+        $('#btn1').click(function(){
+            alert("input의 갯수는:"+ $('input').length);
+            alert("문서내 모든 폼요소의 갯수는:"+$(':input').length);
+        });
+
+        /*
+        태그명과 속성값 얻어오기
+        -태그명 : $(셀렉터).get(0).tagName 혹은 $(셀렉터).tagName으로
+            읽어올 수 있다.
+        -속성값 : attr() 함수를 통해 읽어오거나 값을 부여할 수 있다.
+        */
+        $('#btn2').click(function(){
+            var str = "";
+            //현재문서의 모든 <form>의 하위태그를 선택한 후 반복한다.
+            $(':input').each(function(){
+                //문자형 변수에 태그명과 type속성값을 연결한다.
+                str += "태그명:"+ this.tagName;
+                str += "\n";
+                //attr() 함수에 첫번째 인수만 사용하므로 속성을 읽어온다.
+                str += "Typed의속성값:"+ $(this).attr('type');
+                str += "\n";
+
+                // $(this).attr('type','radio');//확인용
+            });
+            /* <select>, <textarea> 태그는 type속성이 없으므로 undefined이
+            출력된다. */
+            alert(str);
+            console.log(str);
+        });
+
+        $('#btn3').click(function(){
+            $(':text').css('backgroundColor','silver');
+            alert('#text1의 value값'+ $('#text1').val());
+            var txtVal = $('#text2').val( $('#text1').val());
+            alert("txt1의 내용이 txt2로 복사됨");
+        });
+        
+        $('#btn4').click(function(){
+            var a = $(':text').length;
+            var b = $(':checkbox').length;
+            var c = $(':radio').length;
+            var d = $(':password').length;
+
+            console.log('text타입', a);
+            console.log('checkbox타입', b);
+            console.log('radio타입', c);
+            console.log('password타입', d);
+        });
+    });
+    </script>
+</head>
+<body>
+    <h2>form요소와 jQuery</h2>
+    <!--
+        <form> 태그 하위태그로 input, select, textarea 등의 모든 태그가
+        있고, type도 대부분 정의되어 있다.
+    -->
+    <input type="text" name="text1" id="text1" value="노트북" />
+    <br/>
+    <input type="text" name="text2" id="text2" value="" />
+    <br/>
+    <input type="password" name="passwd" />
+    <br/>
+    <select name="select">
+        <option value="A">에이</option>
+        <option value="B">비이</option>
+        <option value="C">씨이</option>
+    </select>
+    <br/>
+    <input type="checkbox" name="checkbox" />나는체크박스다
+    <br/>
+    <input type="hidden" value="hidden" />여긴hidden박스
+    <br/>
+    <input type="submit" value="submit버튼" />
+    <br/>
+
+    <div style="margin-top:50px;">
+        <button id="btn1">버튼1</button>
+        <button id="btn2">버튼2</button>
+        <button id="btn3">버튼3</button>
+        <button id="btn4">버튼4</button>
+    </div>
+</body>
+</html>

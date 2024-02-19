@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ15Form1.jsp</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+    $(function(){
+        //#submit을 클릭하면 폼값 검증을 시작한다.
+        $('#submit').click(function(){
+            //아이디가 sForm인 엘리먼트를 얻어온다. 여기서는 <form>태그
+            var f = document.getElementById("sForm");
+            //<form>의 하위태그인 <input>의 입력값이 있는지 확인한다.
+            if(f.user_id.value==""){
+                alert("아이디를 입력하세요");
+                return false;
+            }
+            if(f.user_pw.value==""){
+                alert("패스워드를 입력하세요");
+                return false;
+            }
+            /*
+            <form>태그에 attr() 함수를 이용해서 속성을 부여한다.
+            */
+            $('#sForm').attr('method','post')
+                .attr('action','http://tjoeun.co.kr')
+                .attr('target','subTarget');
+        });
+    });
+    </script>
+</head>
+<body>
+    <h2>jQuery를 통해 폼값 전송하기</h2>
+
+    <form id="sForm">
+        아이디 : <input type="text" name="user_id" />
+        <br />
+        패스워드 : <input type="password" name="user_pw" />
+        <br />
+        <button type="submit" id="submit">로그인하기</button>
+    </form>
+
+
+    <iframe name="subTarget" frameborder="1"
+        style="border:2px solid #000; width: 500px;
+        height:300px; display: block;"></iframe>
+
+    <h2>HTML 태그를 이용한 가장 기본적인 폼값 전송</h2>
+
+    <script>
+        //폼값의 유효성을 체크하기 위한 함수
+        function check1(){
+            //각 name속성을 통해 <input>의 DOM을 얻어온다.
+            const name = frm1.user_name;
+            //입력값이 있는지 확인한다.
+            if(name.value==''){
+                //입력값이 없다면 경고창을 띄운다.
+                alert('이름을 입력하세요');
+                //바로 입력할 수 있도록 커서를 이동시킨다. 즉 포커싱한다.
+                name.focus();
+                //전송을 차단하기 위해 리스너쪽으로 false를 반환한다.
+                return false;
+            }
+        }
+    </script>
+    <!-- submit버튼을 통해 이벤트가 발생되면 리스너를 통해 check1()
+    함수를 호출한다. 
+    submit 이벤트 리스너가 false를 반환받으면 폼값 전송은 즉시 차단된다.
+    -->
+    <form name="frm1" method="post" action="http://tjoeun.co.kr"
+        onsubmit="return check1();">
+        <input type="text" name="user_name" value="" />
+        <input type="submit" value="폼값전송" />
+    </form>
+</body>
+</html>
