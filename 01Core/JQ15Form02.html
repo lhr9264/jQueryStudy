@@ -41,14 +41,22 @@
             alert(str);
             console.log(str);
         });
-
+        /*
+        val() : <input> 태그와 같은 <form>의 하위 태그에서 value를
+            읽어오거나 설정할때 사용하는 함수
+        */
         $('#btn3').click(function(){
+            //현재 문서의 모든 text속성을 선택해서 배경색을 변경한다.
             $(':text').css('backgroundColor','silver');
+            //val()을 통해 값을 얻어온 후 출력한다.
             alert('#text1의 value값'+ $('#text1').val());
+            /* val()에 인수를 적용하면 값을 입력할 수 있다. 따라서 아래는
+            text1의 값을 읽어온 후 text2에 적용한다. */
             var txtVal = $('#text2').val( $('#text1').val());
             alert("txt1의 내용이 txt2로 복사됨");
         });
-        
+        /* 콜론뒤에 태그의 type 속성을 기술하면 해당 속성값을 가진
+        모든 태그가 선택된다. */
         $('#btn4').click(function(){
             var a = $(':text').length;
             var b = $(':checkbox').length;

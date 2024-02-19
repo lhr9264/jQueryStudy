@@ -1,0 +1,49 @@
+<!--
+연습문제1]비밀번호 확인기능 구현하기
+1.암호1을 입력할때 무조건 암호2 부분을 비워준다.
+2.암호2 부분을 입력할때 암호가 일치하게 되면 
+	<span id="msg"> 부분의 텍스트를 빨간색으로 표현한다.
+3.암호가 틀렸을때 -> 암호가틀립니다(검은색)
+	암호가 일치할때 -> 암호가일치합니다(빨간색)		
+	해당 조건을 만족하는 jQuery코드를 작성하시오.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+        $(function(){
+            //패스워드1을 입력하기 위해 키보드를 눌렀다가 떗을때 동작
+            $('#pwd1').keyup(function(){
+                //패스워드2의 입력값을 삭제한다. 즉 빈값을 입력한다.
+                $('#pwd2').val('');
+                //메세지 출력 부분도 삭제한다.
+                $('#msg').text('');
+            });
+            //패스워드2를 입력할때 패스워드1과 일치여부를 확인한다.
+            $('#pwd2').keyup(function(){
+                let pw1 = $('#pwd1').val();
+                let pw2 = $(this).val();
+                if(pw1 == pw2){
+                    $('#msg').text('암호가 일치합니다.').css('color','red');
+                }
+                else{
+                    $('#msg').html('암호가 틀렸습니다.').css('color','#000');
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+	<h2>비밀번호 확인기능</h2>
+	<span id="msg"></span>
+	<br/>
+	암호입력 : <input type="password" id="pwd1" />
+	<br/>
+	암호확인 : <input type="password" id="pwd2" />
+</body>
+</html>
