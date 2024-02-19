@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    div{
+        width: 500px; height: 130px;
+        text-align: center; font-size: 1.5em;
+        border: 1px dotted black;
+    }
+    input{ width: 200px; height: 100px; margin-top: 20px;}
+</style>
+</head>
+<body>
+    <h2>bind() 메소드</h2>
+    <div id="click_change">
+        마우스를 over하면 red로 변하고 <br />
+        마우스를 out하면 white로 변하고 <br />
+        마우스를 click하면 여기 내용이
+        경고창(alert)으로 뜬다.
+    </div>
+
+    <h2>unbind() 메소드</h2>
+    <input type="button" id="btnClick" value="난버튼" />
+    <input type="button" id="btnEventClear"
+        value="이벤트제거버튼" />
+</body>
+</html>
+<script src="../common/jquery/jquery-3.7.1.js"></script>
+<script>
+/*
+bind() : 엘리먼트에 이벤트를 부여할때 사용
+unbind() : bind()를 통해 부여한 이벤트를 제거할때 사용.
+※주로 메서드체인을 사용해서 여러개의 이벤트를 연결할 수 있다.
+*/
+    $(document).ready(function(){
+        /* 아이디 선택자를 통해 <div> 엘리먼트를 얻어온 후 메서드체인으로 
+        3개의 이벤트를 부여한다. */
+        $('#click_change')
+        .bind("mouseover", function(){
+            /* 마우스를 오버하면 익명함수의 내용이 실행된다. 여기서는
+            배경색을 빨간색으로 설정한다. */
+            document.getElementById("click_change")
+                .style.backgroundColor="red";
+        })
+        .bind("mouseout", function(){
+            //마우스를 내리면 흰색으로 변경한다. 
+            $('#click_change').get(0).style
+                .backgroundColor="white";
+        })
+        .bind("click", function(){
+            /* 클릭했을때 엘리먼트 사이에 있는 컨텐츠를 경고창으로
+            출력한다. 
+            %('#click_change')를 통해 선택한 엘리먼트 하위에 메서드
+            체인으로 함수를 호출하고 있으므로 this를 통해 선택한
+            엘리먼트를 그대로 사용할 수 있다. */
+            alert($(this).text());
+        });
+
+        //버튼 클랙시 alert()를 띄어준다. 
+        $('btnClick').click(function(){
+            alert('버튼 클릭됨');
+        });
+        //'이벤트제거' 버튼을 클릭하면..
+        $('#btnEventClear').bind('click', function(){
+            //btnClick에 부여했던 click 이벤트를 제거한다.
+            $('#btnClick').unbind('click');
+            //따라서 버튼을 눌렀을떄 반응하지 않는다.
+            alert('#btnClick의 이벤트가 제거됨');
+        });
+    });
+</script>

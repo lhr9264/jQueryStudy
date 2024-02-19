@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    $(document).ready(function(){
+        //문서가 로드되면 #btnClick에 click이벤트를 바인딩한다.
+        $('#btnClick').bind("click", function(){
+            alert('버튼을 클릭하셨습니다.');
+        });
+        $('#btnClick').trigger('click');
+    });
+    /* 문서가 로드되면 자동으로 click 이벤트를 실행한다. 즉 페이지
+    로딩시 click이벤트를 트리거한다. 이벤트가 자동으로 실행되어야
+    할때 사용한다.*/
+    </script>
+</head>
+<body>
+    <h2>trigger() 메소드</h2>
+
+    <button id="btnClick">난버튼</button>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+    /*
+    get() : Jquery 객체가 아닌 Javascript의 DOM을 선택할 떄 사용한다.
+        즉 자바스크립트와 혼용해서 사용해야할때 유용하게 사용된다.
+    */
+    $(document).ready(function() {
+        //id가 naver인 엘리먼트를 선택한 후 클릭하면..
+        $('#naver').click(function(){
+            /* 네이버 링크의 DOM을 얻어온 후 href속성값을 경고창으로
+            출력한다. */
+            alert($('#naver').get(0).href);
+        });
+    });
+    //Javascript 코드로 구현
+    function daumClick(){
+        //다음 링크의 DOM을 얻어와서 href속성값을 경고창으로 띄워준다.
+        var daum = document.getElementById("daum");
+        alert(daum.href)
+    }
+    </script>
+</head>
+<body>
+    <h2>get()메소드</h2>
+    <ul>
+        <li>
+            <!-- JQuery를 통해 엘릴먼트를 선택하는 경우에는 이벤트 리스너가
+            별도로 피룡하지 안핟. 이벤트에 관련된 모든 함수가 이미 정의되어
+            있다. -->
+            <a href="#http://www.naver.com" id="naver">
+                네이버
+            </a>
+        </li>
+        <li>
+            <!-- JS로 DOM을 선택할때는 반드시 이벤트 리스너를 별도로
+            부착해야 한다. -->
+            <a href="Daum" art="Daum입니다." id="daum"
+            onclick="daumClick();">
+                다음
+            </a>
+        </li>
+    </ul>
+    <script>
+    //JQuery의 엔트리포인트는 한 문서에 2개이상 정의할 수 있다.
+    $(function(){
+        //id가 btn인 버튼을 클릭하면 실행되는 구조로 정의됨.
+        $('#btn1').click(function(){
+            /* class 선택자를 통해 엘리먼트를 얻어온 후 0번 인덱스의
+            엘리먼트를 선택한 후 변수에 저장한다.*/
+            var tx = $(".kosmo").get(0);
+            /* 선택한 엘리먼트의 <li> 태그 사이의 내용을 콘솔에
+            출력한다. */
+            console.log(tx.innerText);
+        });
+        //인덱스2를 선택하므로 "도전의방"이 출력된다.
+        $('#btn2').click(function(){
+            var tx = $(".kosmo").get(2);
+            /* get() 함수를 통해 얻어온 DOM은 Javascript속성으로만
+            사용할 수 있다. 따라서 innerText 혹은 innerHTML을 통해서만
+            컨텐츠를 출력할 수 있다.*/
+            console.log(tx.innerText);
+        });
+        $('#btn3').click(function(){
+            var tx = $(".kosmo").get(3);
+            /* get() 함수를 통해 얻어온 DOM은 JQuery의 함수를 사용할
+            수 없다. text()는 JS의 innerText와 동일한 역할을 한다. */
+            console.log(tx.text()); //에러발생
+        });
+    });
+    </script>
+    <ul>
+        <li class="kosmo">꿈의방</li>
+        <li class="kosmo">열정의방</li>
+        <li class="kosmo">도전의방</li>
+        <li class="kosmo">희망의방</li>
+    </ul>
+    <input type="button" id="btn1" value="꿈버튼">
+    <input type="button" id="btn2" value="도전버튼">
+    <input type="button" id="btn3" value="버튼(error)">
+    <script>
+    $(function(){
+        $('#button1').click(function(){
+            /* 버튼1을 누르면 클래스 선택자를 통해 4개의 <li>태그를
+            얻어온다. 2개이상이므로 배열과 같이 사용할 수 있다.*/
+            var tx = $(".gasan").get();
+            for(var i=0 ; i<tx.length ; i++){
+                console.log(tx[i].innerHTML);
+            }
+        });
+    });
+    </script>
+    <ul>
+        <li class="gasan">대륭포스트</li>
+        <li class="gasan">월드메르디앙</li>
+        <li class="gasan">SK</li>
+        <li class="gasan">하이엔드</li>
+    </ul>
+    <input type="button" id="button1" value="배열로가져오기">
+</body>
+</html>

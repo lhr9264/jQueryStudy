@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="../common/jquery/jquery-3.7.1.js"></script>
+<script>
+/*
+hover() : 선택한 엘리먼트에 마우스를 올렸을때(Over)와 내렸을때(Out)의
+    효과를 동시에 부여한다.
+*/
+$(function(){
+    //img 태그선택자를 통해 이미지를 선택한다.
+    $("img").hover(
+        /* 첫번째인수 : 마우스 오버시 효과 부여 */
+        function(){
+            /* css() 함수의 첫번째 사용법은 JS의 객체를 통해 2개 이상의
+            값을 한꺼번에 부여한다. Key가 속성, Value가 속성값으로 구성되어
+            있다. */
+            $(this).css({'width':'300px',
+                'height':'400px',
+                'border':'3px solid black'});
+        },
+        /* 두번째인수 : 마우스 아웃시 효과 부여 */
+        function(){
+            /* 두번째 사용법은 메서드체인을 통해 여러개의 스타일을 부여한다. 
+            이때는 함수 하나에 속성 하나를 부여할 수 있다.*/
+            $(this).css("width","100px")
+                .css("height","150px")
+                .css("border","5px dotted yellow");
+        }
+    );
+});
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>hover() 메소드</h2>
+    <p>
+        마우스 오버/아웃으로 이미지크기 조절하기
+    </p>
+    <img src="../images/7.jpg" alt="행운의8" />
+</body>
+</html>
