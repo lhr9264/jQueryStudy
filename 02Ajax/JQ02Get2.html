@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+    $(function(){
+        $('#btnJSON').click(function(){
+            //요청URL은 내부의 json파일을 사용한다.
+            $.get('./common/02Contact.json',
+                /* 파라미터는 필요없으므로 생략할 수 있따. 여기서는 형식만
+                확인하는 용도로 삽입한다. */
+                {},
+                /* 콜백함수 : 요청에 성공하면 rData로 JSON파일의 내용이
+                        콜백된다.
+                        매개변수 status, xhr은 사용하지 않으므로 생략할 수
+                        있다. 형식만 확인하는 용도로 삽입 */
+                function(rData, status, xhr){
+                    let str = '';
+                    /*
+                    each()함수의 두가지 형식
+                    1. $(셀렉터).each(콜백함수(index, data){ 실행부 })
+                        jQuery의 기본 사용법응로 셀렉터뒤에 함수를 호출한다.
+                    2. $.each(데이터, 골백함수(index. data){ 실행부 })
+                        셀렉터로 엘리먼트를 선택하는 대신 비동기 함수에서
+                        콜백받은 데이터를 기반으로 콜백함수를 반복 호출한다. 
+
+                    JSON데이터의 contacts는 배열을 Value로 가지고 있으므로
+                    크기 즉 객체의 갯수만큼 반복할 수 있다.
+                    */
+                    $.each(rData.contacts, function(index, data){
+                        //하나의 객체가 data로 넘어온다.
+                        console.log(index, data);
+                        //각 객체의 key를 통해 데이터를 파싱한다.
+                        str += '<tr>'
+                                +'<td>'+ data.no +'</td>'
+                                +'<td>'+ data.name +'</td>'
+                                +'<td>'+ data.tel +'</td>'
+                                +'<td><img src="'+ data.photo +'"></td>'
+                            +'</tr>';
+                    });
+                    //table 하단에 파싱한 내용을 추가한다.
+                    $('#displayTable').append(str);
+                }
+            );
+        });
+    });
+    </script>
+</head>
+<body>
+    <h2>$.get() 메소드 사용하기</h2>
+
+    <h3>JSON 파일 읽어오기</h3>
+    <button id="btnJSON">JSON데이터 읽어오기</button>
+    <table border="1" id="displayTable">
+        <tr>
+            <td>no</td>
+            <td>name</td>
+            <td>tel</td>
+            <td>photo</td>
+        </tr>
+        <!-- 파싱한 데이터를 삽입하는 위치는 이부분이므로 append()함수를 
+        통해 삽입해야한다. 기존에 있던 데이터를 유지한 상태로 데이터를
+        추가해야 하고 또한 자식 엘리먼트로 삽입되어야 하므로 after()를
+        사용할 수 없다. -->
+    </table>
+</body>
+</html>

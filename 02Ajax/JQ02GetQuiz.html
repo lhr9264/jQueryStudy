@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $('#btnJSON').click(function(){
+            $.get('https://jsonplaceholder.typicode.com/photos',
+            function(data){
+                console.log(data);
+                
+                $.each(rData.contacts, function(index, data){
+                    console.log(index, data);
+                    str += '<tr>'
+                            +'<td>'+ data.no+'</td>'
+                            +'<td>'+ data.title+'</td>'
+                            +'<td><img src="'+ data.title+'"></td>'
+                        +'</tr>';
+                        $('#displayTable').append(str);
+                }
+                );
+            });
+        });
+    </script>
+</head>
+<body>
+	<h2>$.get() 메소드 사용하기</h2>
+		
+	<button id="btnJSON">웹에서 JSON 데이터 읽어오기</button>	
+	<table border='1' id="displayTable">
+		<tr>
+			<th>no</th>
+			<th>title</th>
+			<th>photo</th>
+		</tr>
+	</table>    
+</body>
+
+</html>

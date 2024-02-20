@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert title here</title>
+</head>
+<body>
+    <script>
+    //해당 문서의 로드가 완료되면 익명함수의 내용을 실행한다.
+    //jQuery의 Entry point와 동일한 역할을 한다.
+    window.onload = function(){
+        //부모페이지의 DOM을 얻어온 후 텍스트를 추가한다.
+        parent.document.getElementById("callBackData").innerHTML
+            = "콜백되었습니다.";
+        /*
+        iframe내에서 실행되는 페이지이므로 부모쪽으로 데이터를 보내기
+        위해서는 parent 타겟 설정이 필요하다.
+        */
+    }
+    </script>
+    <h2>00Callback.html 파일입니다.</h2>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <title>Append</title>
+</head>
+<script>
+    $(function() {
+        $('#btn').click(function() {
+            // 행과 열의 입력값을 가져온다.
+            var row = $('#row').val();
+            var col = $('#col').val();
+            // 테이블 태그를 문자형 변수에 연결한다.
+            var table = "<table border='1'>";
+            for(var i = 1; i <= row; i++) {
+                // '행'은 tr 태그를 반복
+                table += "<tr>";
+                for(var j = 1; j <=  col; j++) {
+                    // '열'은 td태그를 반복
+                    table += "<td>" + i + "행, " + j + "열</td>";
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+            /*
+            append() / prependTo() : 선택한 DOM의 '자식'으로 새로운 컨텐츠를 추가한다.
+                                     단, 기존의 내용이 유지된다.
+            */
+            // 선택한 엘리먼트의 뒷부분에 추가된다.
+            $('#appendDisplay').append(table);
+            /* 엘리먼트의 앞부분에 추가된다.
+               단, 일반적인 함수와 사용법이 약간 다른 것에 주의해야 한다.
+               선택지가 뒷부분에 추가된다. */
+            //$(table).prependTo('#appendDisplay');
+            //파란색 박스 안쪽에 추가된다.
+
+            /* 
+            before() / after()
+            : 선택한 DOM의 앞/뒷부분에 컨텐츠를 추가한다.
+               추가시 동일한 depth 즉, '동위'로 추가된다.
+               기존의 컨텐츠를 밀어낸 후 삽입하는 형식으로 추가한다. */
+            // $('#appendDisplay').before(table);
+            // $('#appendDisplay').after(table);
+            //파란색 박스 바깥쪽에 추가된다.
+            
+            /* html()과 text()는 기존 컨텐츠를 제거한 후 새로운 컨텐츠로 교체한다.
+              즉, 내용이 변경된다. */
+            // $('#appendDisplay').html(table);
+            
+        });
+    });
+</script>
+<body>
+    <h2>append() 메서드</h2>
+    <input type="number" id="row" value="2" />행
+    <input type="number" id="col" value="2" />열
+    <input type="button" id="btn" value="동적테이블추가" />
+    <div id="appendDisplay" style="border: 1px solid blue; padding: 10px;">여기에 생성됨</div>
+</body>
+</html>
