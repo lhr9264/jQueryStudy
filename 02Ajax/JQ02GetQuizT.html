@@ -11,12 +11,15 @@
 <script>
 $(function(){
     $('#btnJSON').click(function(){			
+        //1.요청이 start됨 (loading이미지가 보여지는 시점)
+        $('#load-img').show();
         $.get('https://jsonplaceholder.typicode.com/albums/1/photos', 
         {}, 
         function(responseData, status, xhr){         
             console.log(status);
             let str = '';
             if(status=='success'){
+                //2.요청이 완료됨
                 console.log(responseData);
                 $.each(responseData, function(index, data){
                     str += '<tr>'
@@ -26,6 +29,9 @@ $(function(){
                     +'</tr>';
                 });
                 $('#displayTable').append(str);
+                //콜백된 데이터를 출력한 후 작업 완료됨
+                //(loading이미지가 제거되는 시점)
+                $('#load-img').hide();
             }
         });
     });
@@ -35,7 +41,10 @@ $(function(){
 <body>
 	<h2>$.get() 메소드 사용하기</h2>
 		
-	<button id="btnJSON">웹에서 JSON 데이터 읽어오기</button>	
+	<button id="btnJSON">웹에서 JSON 데이터 읽어오기</button>
+    <div id="load-img" style="display: none;">
+        <img src="../images/loading.gif" style="width: 300px;">
+    </div>
 	<table border='1' id="displayTable">
 		<tr>
 			<th>no</th>

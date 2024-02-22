@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+    $(function(){
+        $('#btnJSOn').click(function(){
+            let params = {pagena : $('#pageno').val()}
+            $.ajax({
+                url : '',
+                type : 'get',
+                data : params,
+                dataType : "json",
+                success : function(resData){
+                    let str = '';
+                    $.each(resData.contacts, function(index,data){
+                        console.log
+                    })
+                }
+            })
+        })
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>$.ajax() 메소드 사용하기</h2>
+
+        <table border="1" id="tbl1">
+            <button id="btn">JSON데이터 읽어오기</button>
+            <tr>
+                <td>no</td>
+                <td>name</td>
+                <td>tel</td>
+                <td>photo</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

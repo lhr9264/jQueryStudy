@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"> </script>
+    <script>
+    /*
+    $.ajaxSetup()
+        : 동일하게 반복되는 $.ajax()의 인수를 설정하여 반복 사용을
+        줄일 수 있다. type, dataType등 기본적으로 사용되는 인수들을
+        묶어주면 중복되는 코드를 중리 수 있다.
+    */
+    $(function(){
+        //요청URL, 콜백데이터의 타입을 먼저 setup한다.
+        $.ajaxSetup({
+            url : "./common/04JSONData.json",
+            dataType : "json"
+        });
+        $('#btn').click(function(){
+            /*
+            앞에서 setup한 2개의 항목을 제외하고 나머지 인수에 대해서만
+            정의하면 된다. 즉 ajaxSetup은 ajax함수의 부모역할을 한다고
+            생각하면 된다.
+            */
+            $.ajax({
+                //요청에 성공한 경우 전달받은 콜백데이터로 반복한다.
+                success : function(responseData){
+                    console.log(responseData);
+                    /*
+                    콜백데이터는 JSON 배열이므로 each()를 통해 반복할 수 있다.
+                    */
+                    $.each(responseData, function(index,value){
+                        /*
+                        매개변수 index는 순서대로 0부터 반환된다.
+                        value은 해당 반복회차의 객체가 반환된다.
+                        */
+                        console.log(index, value);
+                        /*
+                        JSON객체를 파싱할때는 .(닷)과 [](대괄호) 두가지 형태를
+                        사용할 수 있다.
+                        */
+                        var htmlStr = "<tr>";
+                        htmlStr += " <td>"+(index+1)+"</td>";
+                        htmlStr += " <td>"+value.name+"</td>";
+                        htmlStr += " <td>"+value["age"]+"</td>";
+                        htmlStr += " <td>"+value["주소"]+"</td>";
+                        htmlStr += "    </tr>";
+
+                        //테이블 내부의 </tr> 뒷부분에 컨첸츠를 추가한다.
+                        $('#tbl1').append(htmlStr);
+
+                        /*
+                        after()를 사용하면 </table> 태그 외부에 <tr>이 추가되므로
+                        border가 생기지않는다. 즉 잘못된 위치에 추가된다.
+                        */
+
+                        /*
+                        html()은 기존의 데이터를 삭제한 후 새로운 컨텐츠로 대체
+                        하므로 마지막 객체인 '김유신'만 남게된다.
+                        */
+                        $('#tbl1').after(htmlStr);
+                        // $('#tbl1').html(htmlStr);
+                    });
+                },
+                /*
+                실패했을때의 콜백함수는 외부의 JS함수로 정의한다. 호출시에는
+                함수명만 명시하면된다.
+                */
+                error:errFunc
+            });
+        });
+    });
+    function errFunc(errData){
+        alert("실패:"+errData.status+":"+errData.statusText);
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>$.ajaxSetup() 메소드 사용하기</h2>
+
+        <table border="1" id="tbl1">
+            <tr>
+                <td>NO</td>
+                <td>이름</td>
+                <td>나이</td>
+                <td>출신지역</td>
+            </tr>
+        </table>
+
+        <button id="btn">JSON데이터 가져오기</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+    /*
+    $.ajax() : jQuery에서 사용되는 Ajax관련 함수로 load(), get(), post()함수의
+        모든 기능을 가진 함수로 가장 활용빈도가 높다. 별도의 인수가 존재하지 않고
+        JSON 형태의 인수 하나만 존재한다.
+
+    인수의 속성
+        url : 요청할 서버의 경로 혹은 URL
+        type : 전송방식으로 get 혹은 post
+        dataType : 콜백데이터의 형식을 지정한다. json, xml, script, text, html
+            등이있다.
+        contentType : 전송방식에 따라 컨텐츠 타입을 지정한다. 특히 외부서버와의
+            통신에서는 반드시 명시해야 한다.
+        data : 요청시 전송할 파라미터로 JSON 객체로 표현한다.
+        success : 요청에 성공한 경우 호출된느 콜백함수 
+        error : 실패했을때의 콜백함수
+    */
+    $(function(){
+        $('#ajaxBtn').click(function(){
+            $.ajax({
+                //요청URL
+                url : './common/03JsData.js',
+                //전송방식
+                type : 'get',
+                //콜백데이터의 형식을 Javascript로 지정
+                dataType : "script",
+                //요청에 성공한 경우 호출되는 콜백함수
+                success : function(resData) {
+                    /*
+                    매개변수로 JS파일의 모든 내용이 콜백된다. 즉 해당 문서에는 MyAlert()
+                    가 없지만 콜백된 내용이 현재 문서에 포함되므로 요청에 성공했다면
+                    아래와 같이 호출할 수 있다.
+                    */
+                    MyAlert("Hello"," AJAX");
+                    $('#ajaxDisplay').html(resData);
+                },
+                //실패했을때 콜백함수
+                error : function(errData){
+                    /* 매개변수로 전달되는 콜백데이터를 통해 에러의 원인을 파악할 수 있다. */
+                    console.log(errData.state, errData.statusText);
+                },
+            });
+        });
+    });
+    function sucFunc(resData){
+        alert("$.ajax()메소드 요청성공");
+        $('#ajaxDisplay').html(resData);
+    }
+    </script>
+</head>
+<body>
+    <h2>$.ajax() 메소드 사용하기</h2>
+
+    <button id="ajaxBtn">ajax()메소드실행하기</button>
+
+    <div id="ajaxDisplay">
+        ajax결과를 여기에 디스플레이
+    </div>
+</body>
+</html>
